@@ -6,78 +6,187 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min";
 
-function App() {
-  return (
-    <div className="App">
-      <Navigation />
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-      <canvas className="view" />
-      <div className="button_list">
-        <img src="right.jpg" className="steerButton" value="Isod" alt="Left" />
+class MainPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      appState: {}
+    };
+  }
+
+  onCircuitSelected = c => {
+    c.ccircuit = bootstrapCircuit(c);
+    this.setState({
+      appState: {
+        editingCircuit: c
+      }
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Router>
+          <div>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="navbar" id="navbarNav">
+                <ul className="nav navbar-nav-right">
+                  <li className="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Wykres
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <a class="dropdown-item" href="/">
+                        Utwórz nowy
+                      </a>
+                      <a class="dropdown-item" href="/save">
+                        Zapisz
+                      </a>
+                      <a class="dropdown-item" href="/open">
+                        Otwórz
+                      </a>
+                    </div>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Edycja
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <a class="dropdown-item" href="#">
+                        Action
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Another action
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Something else here
+                      </a>
+                    </div>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Widok
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <a class="dropdown-item" href="#">
+                        Action
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Another action
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Something else here
+                      </a>
+                    </div>
+                  </li>
+                  <li className="nav-item active">
+                    <a
+                      class="nav-link"
+                      href="https://2pkjnj1970.codesandbox.io/"
+                    >
+                      Pomoc<span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <Route exact path="/" component={Start} />
+            <Route path="/chart" render={e => <p>nic</p>} />
+            <Route
+              path="/nic"
+              render={e => {
+                <p>też nic</p>;
+              }}
+            />
+          </div>
+        </Router>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function New() {
   return <div className="App" />;
 }
 
-const Navigation = () => (
-  <div>
-    <Router>
-      <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to="/">About</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/start">Repos</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <Route exact path="/" component={} />
+class Menu extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello CodeSandbox</h1>
+        <Route exact path="/" component={<div />} />
         <Route
-          path="/circuits"
+          path="/start"
           render={props => (
             <CircuitsList onCircuitSelected={this.onCircuitSelected} />
           )}
         />
         <Route
-          path="/editor"
+          path="/chart"
           render={props => {
             return <CircuitEditor appState={this.state.appState} />;
           }}
         />
+        <canvas className="view" />
+        <div className="button_list">
+          <a href="www.isod.ee.pw.edu.pl">
+            <img
+              src="https://uploads.codesandbox.io/uploads/user/bfa33310-b706-404e-ac3d-b090a60a21b3/3UD0-right.bmp"
+              className="steerButton"
+              value="Isod"
+              alt="Right"
+            />
+          </a>
+        </div>
       </div>
-    </Router>
-  </div>
-    
+    );
+  }
+}
 
-);
+class Start extends React.Component {
+  render() {
+    return (
+      <div>
+        <img src="https://o.art-madam.pl/zdjecie/teczowe-ptaki-nowoczesny-obraz-recznie,kpftrlcpfbnwssfd.jpg" />
+      </div>
+    );
+  }
+}
 
-// const Root = () => (
-//     <Router>
-//       <Route path="/" component={App} />
-//       <Route path="/start" component={New} />
-//     </Router>
-// );
-export default Navigation;
+function App() {
+  return <MainPage />;
+}
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(App(), rootElement);

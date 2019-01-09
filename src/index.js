@@ -134,6 +134,11 @@ class MainPage extends React.Component {
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
               <div class="navbar" id="navbarNav">
                 <ul className="nav navbar-nav-right">
+                  <li className="nav-item active">
+                    <a class="nav-link" href="/chart">
+                      Przejdź do wykresu
+                    </a>
+                  </li>
                   <li className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle"
@@ -146,12 +151,9 @@ class MainPage extends React.Component {
                       Wykres
                     </a>
                     <div
-                      class="dropdown-menu"
+                      class="dropdown-menu drop-list"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      <a class="dropdown-item" href="/chart">
-                        Przejdź do wykresu
-                      </a>
                       <a class="dropdown-item" href="/">
                         Utwórz nowy
                       </a>
@@ -175,17 +177,17 @@ class MainPage extends React.Component {
                       Edycja
                     </a>
                     <div
-                      class="dropdown-menu"
+                      class="dropdown-menu drop-list"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
-                      <a class="dropdown-item" href="#">
-                        Action
+                      <a class="dropdown-item" href="/data">
+                        Edytuj dane
                       </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
+                      <a class="dropdown-item" href="/type_chart">
+                        Edytuj wykres
                       </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
+                      <a class="dropdown-item" href="/description">
+                        Opis
                       </a>
                     </div>
                   </li>
@@ -201,7 +203,7 @@ class MainPage extends React.Component {
                       Widok
                     </a>
                     <div
-                      class="dropdown-menu"
+                      class="dropdown-menu drop-list"
                       aria-labelledby="navbarDropdownMenuLink"
                     >
                       <a class="dropdown-item" href="#">

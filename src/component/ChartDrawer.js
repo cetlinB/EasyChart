@@ -24,26 +24,12 @@ import {
   Gradient
 } from "rumble-charts";
 
-var type = "bars";
-
 var labels = {
   labels: ["x", "y", "z"]
 };
 
-var series = [
-  {
-    data: [1, 2, 3]
-  },
-  {
-    data: [5, 7, 11]
-  },
-  {
-    data: [13, 17, 19]
-  }
-];
-
-function chartChooser() {
-  if ((type = "pies")) {
+function chartChooser(type) {
+  if (type == "pies") {
     return (
       <Transform method={["transpose", "stackNormalized"]}>
         <Pies
@@ -60,15 +46,24 @@ function chartChooser() {
         />
       </Transform>
     );
-  } else if ((type = "bars")) {
-    return <Bars />;
-  } else if ((type = "cloud")) {
+  } else if (type == "bars") {
+    return (
+      <Transform method={["transpose", "stack"]}>
+        <Bars
+          combined={true}
+          padAngle={0.025}
+          cornerRadius={5}
+          innerPadding={2}
+        />
+      </Transform>
+    );
+  } else if (type == "cloud") {
     return <Cloud />;
-  } else if ((type = "dots")) {
+  } else if (type == "dots") {
     return <Dots />;
-  } else if ((type = "radial")) {
+  } else if (type == "radial") {
     return <RadialLines />;
-  } else if ((type = "lines")) {
+  } else if (type == "lines") {
     return <Lines />;
   } else {
     return <Bars />;
@@ -80,11 +75,22 @@ class ChartDrawer extends React.Component {
     super(props);
   }
 
+  handleChange(event) {
+    const text = event.target.value;
+    this.props.onChange(this.props.id, text);
+  }
+
   render() {
     return (
       <div>
-        <Chart width={600} height={250} series={series} minY={0} maxY={20}>
-          {chartChooser()}
+        <Chart
+          width={600}
+          height={250}
+          series={this.props.series}
+          minY={0}
+          maxY={20}
+        >
+          {chartChooser(this.props.type)}
         </Chart>
       </div>
     );

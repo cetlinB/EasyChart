@@ -21,6 +21,18 @@ class ChartDataSet {
   }
 }
 
+var series = [
+  {
+    data: [1, 2, 3]
+  },
+  {
+    data: [3, 7, 11]
+  },
+  {
+    data: [15, 17, 19]
+  }
+];
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -45,8 +57,15 @@ class MainPage extends React.Component {
         <Router>
           <div>
             <Menu />
-            <Route exact path="/" component={Start} />
-            <Route path="/chart" component={ChartDrawer} />
+            <Route
+              exact
+              path="/"
+              render={props => <DataSetTable series={series} />}
+            />
+            <Route
+              path="/chart"
+              render={props => <ChartDrawer series={series} type="lines" />}
+            />
             <Route
               path="/nic"
               render={e => {
@@ -62,16 +81,6 @@ class MainPage extends React.Component {
 
 function New() {
   return <div className="App" />;
-}
-
-class Start extends React.Component {
-  render() {
-    return (
-      <div>
-        <DataSetTable />
-      </div>
-    );
-  }
 }
 
 function App() {

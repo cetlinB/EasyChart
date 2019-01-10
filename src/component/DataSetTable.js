@@ -1,12 +1,37 @@
 import React from "react";
 
+class TableRow extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <tr key={this.props.index}>
+        <th>{this.props.index + 1}</th>
+        {this.props.series.map((c, idx) => {
+          return (
+            <td>
+              <div contentEditable="true">{c.data[this.props.index]}</div>
+            </td>
+          );
+        })}
+      </tr>
+    );
+  }
+}
+
 class DataSetTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      labels: ["#", "x", "y"],
-      data: [[1, 3], [4, 2]]
+      labels: ["x", "y"]
     };
+  }
+
+  handleChange(event) {
+    const text = event.target.value;
+    this.props.onChange(this.props.id, text);
   }
 
   changeElement(dataset, idx, row, data) {
@@ -20,20 +45,14 @@ class DataSetTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
+              <th>#</th>
               {this.state.labels.map((c, index) => {
                 return (
                   <th>
                     <div
                       contentEditable="true"
                       id={index}
-                      onBlur={() => {
-                        var newLabels = this.state.labels;
-                        console.log(index);
-                        newLabels[index] = 1;
-                        this.setState({
-                          labels: newLabels
-                        });
-                      }}
+                      onChange={this.handleChange}
                     >
                       {c}
                     </div>
@@ -43,19 +62,8 @@ class DataSetTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.data.map((c, idx) => {
-              return (
-                <tr key={idx}>
-                  <th>{idx + 1}</th>
-                  {c.map((x, index) => {
-                    return (
-                      <td>
-                        <div contentEditable="true">{x}</div>
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
+            {this.props.series[0].data.map((x, idx) => {
+              return <TableRow index={idx} series={this.props.series} />;
             })}
           </tbody>
         </table>

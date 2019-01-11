@@ -1,0 +1,156 @@
+<Route
+  exact
+  path="/"
+  render={props => {
+    dataSet.state.labels = this.state.labels;
+    dataSet.state.series = this.state.series;
+    return (
+      <DataSetTable
+        onChange={this.onNewRowAdded}
+        series={dataSet.state.series}
+        labels={dataSet.state.labels}
+      />
+    );
+  }}
+/>
+  <Route
+    path="/chart"
+    render={props => (
+      <ChartDrawer series={dataSet.state.series} type="lines" />
+    )}
+  />
+  <Route
+    path="/nic"
+    render={e => {
+      return <p>też nic</p>;
+    }}
+  />
+  <Route
+    path="/data"
+    render={props => {
+      return (
+        <DataSetTable
+          onChange={this.onNewRowAdded}
+          series={dataSet.state.series}
+          labels={dataSet.state.labels}
+        />
+      );
+    }}
+  />
+
+class ChartDataSet {
+  constructor() {
+    this.state = {
+      labels: ["x", "y"],
+      series: [{ data: [1, 3] }, { data: [4, 2] }],
+      seria: 2
+    };
+  }
+
+  getSeries() {
+    return this.state.series;
+  }
+
+  getLabels() {
+    return this.state.labels;
+  }
+
+  addRow() {
+    console.log("nic sie nie dzieje");
+    var newTable = this.state.series;
+    newTable[this.state.seria] = { data: this.state.labels.map(e => 0) };
+    console.log(this.state.series);
+    this.state.series = newTable;
+    this.state.seria += 1;
+    console.log(this.state.series);
+  }
+}
+
+function pageChooser(page, labels, series) {
+  console.log("started");
+  if (page === "main") {
+    return <DataSetTable series={series} labels={labels} />;
+  } else if (page === "chart")
+    return <ChartDrawer series={series} type="lines" />;
+  else return <p>też nic</p>;
+}
+
+var dataSet = new ChartDataSet();
+
+class MainPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: "main",
+      appState: {},
+      labels: ["x", "y"],
+      series: [{ data: [1, 3] }, { data: [4, 2] }]
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // only update chart if the data has changed
+    if (prevState.page !== this.state.page) {
+      this.setState({
+        page: this.state.page
+      });
+    }
+  }
+
+  onCircuitSelected = c => {
+    c.ccircuit = bootstrapCircuit(c);
+    this.setState({
+      appState: {
+        editingCircuit: c
+      }
+    });
+  };
+
+  onNewRowAdded = r => {
+    if (r.target.id === "newRowButton") {
+      dataSet.addRow();
+    }
+  };
+
+  pageHandler = e => {
+    console.log(e.target.id);
+    this.setState({
+      page: e.target.id
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Router>
+          <div>
+            <Menu onChange={this.pageHandler} />
+            <div>
+              {pageChooser(
+                this.state.page,
+                this.state.labels,
+                this.state.series
+              )}
+            </div>
+          </div>
+        </Router>
+      </div>
+    );
+  }
+}
+
+function New() {
+  return <div className="App" />;
+}
+
+function App() {
+  return <MainPage />;
+}
+
+
+{pageChooser(
+                this.state.page,
+                this.state.labels,
+                this.state.series
+              )}

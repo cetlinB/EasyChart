@@ -24,15 +24,16 @@ class TableRow extends React.Component {
 class DataSetTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      labels: ["x", "y"]
-    };
   }
 
   handleChange(event) {
     const text = event.target.value;
-    this.props.onChange(this.props.id, text);
+    this.props.onChange(event.target.id, text);
   }
+
+  handleNewColumn = event => {
+    this.props.onChange(event);
+  };
 
   changeElement(dataset, idx, row, data) {
     if ((dataset = "label")) {
@@ -46,7 +47,7 @@ class DataSetTable extends React.Component {
           <thead>
             <tr>
               <th>#</th>
-              {this.state.labels.map((c, index) => {
+              {this.props.labels.map((c, index) => {
                 return (
                   <th>
                     <div
@@ -59,6 +60,11 @@ class DataSetTable extends React.Component {
                   </th>
                 );
               })}
+              <th>
+                <div id="newRowButton" onDoubleClick={this.handleNewColumn}>
+                  +
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>

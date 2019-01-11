@@ -29,7 +29,7 @@ var labels = {
 };
 
 function chartChooser(type) {
-  if (type == "pies") {
+  if (type === "pies") {
     return (
       <Transform method={["transpose", "stackNormalized"]}>
         <Pies
@@ -46,7 +46,7 @@ function chartChooser(type) {
         />
       </Transform>
     );
-  } else if (type == "bars") {
+  } else if (type === "bars") {
     return (
       <Transform method={["transpose", "stack"]}>
         <Bars
@@ -57,13 +57,13 @@ function chartChooser(type) {
         />
       </Transform>
     );
-  } else if (type == "cloud") {
+  } else if (type === "cloud") {
     return <Cloud />;
-  } else if (type == "dots") {
+  } else if (type === "dots") {
     return <Dots />;
-  } else if (type == "radial") {
+  } else if (type === "radial") {
     return <RadialLines />;
-  } else if (type == "lines") {
+  } else if (type === "lines") {
     return <Lines />;
   } else {
     return <Bars />;

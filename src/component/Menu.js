@@ -39,6 +39,12 @@ class Menu extends React.Component {
               >
                 Wykres
               </a>
+              <input
+                type="color"
+                id="html5colorpicker"
+                onchange="clickColor(0, -1, -1, 5)"
+                value="#ff0000"
+              />
               <div
                 class="dropdown-menu bg-light drop-list"
                 aria-labelledby="navbarDropdownMenuLink"
